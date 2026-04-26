@@ -1,7 +1,7 @@
 # Diseño e Integracion del Sistema DAQ Festo Labvolt con MATLAB Simulink y LabVIEW
 **Autores:** Juan Diego Diaz Alvarez, Giuliana Andrea Caballero Guzman
-**Institución:** Universidad ECCI - Programa de Mecatrónica
-**Año:** 2026
+   **Institución:** Universidad ECCI - Programa de Mecatrónica
+    **Año:** 2026
 
 Proyecto de investigación: Integración del DAQ Festo Labvolt con MATLAB/Simulink y LabVIEW para la validación de algoritmos de control en laboratorio.
 
