@@ -1,4 +1,4 @@
-# Diseño-e-Integraci-n-del-Sistema-DAQ-Festo-Labvolt-con-MATLAB-Simulink-y-LabVIEW
+# Diseño e Integracion del Sistema DAQ Festo Labvolt con MATLAB Simulink y LabVIEW
 Proyecto de investigación: Integración del DAQ Festo Labvolt con MATLAB/Simulink y LabVIEW para la validación de algoritmos de control en laboratorio.
 # Diseño e Integración del Sistema DAQ Festo Labvolt con MATLAB/Simulink y LabVIEW
 
