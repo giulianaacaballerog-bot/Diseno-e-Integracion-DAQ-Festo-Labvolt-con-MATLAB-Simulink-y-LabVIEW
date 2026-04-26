@@ -1,9 +1,9 @@
 # Diseño e Integracion del Sistema DAQ Festo Labvolt con MATLAB Simulink y LabVIEW
-Proyecto de investigación: Integración del DAQ Festo Labvolt con MATLAB/Simulink y LabVIEW para la validación de algoritmos de control en laboratorio.
-
 **Autores:** Juan Diego Diaz Alvarez, Giuliana Andrea Caballero Guzman
 **Institución:** Universidad ECCI - Programa de Mecatrónica
 **Año:** 2026
+
+Proyecto de investigación: Integración del DAQ Festo Labvolt con MATLAB/Simulink y LabVIEW para la validación de algoritmos de control en laboratorio.
 
 ## Descripción del Proyecto
 Este proyecto busca solucionar la falta de comunicación fluida entre el hardware de adquisición de datos (DAQ) de Festo Labvolt y los entornos de desarrollo MATLAB/Simulink y LabVIEW. El objetivo es permitir que estudiantes e investigadores validen algoritmos de control (PID, ON/OFF) de manera práctica en el laboratorio académico.
