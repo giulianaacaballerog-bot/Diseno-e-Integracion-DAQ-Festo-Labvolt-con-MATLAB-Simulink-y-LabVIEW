@@ -27,6 +27,7 @@ Dependiendo del módulo seleccionado, abre una ventana específica:
 - GUI_DC()
 - GUI_AC()
 - GUI_Control()
+- 
 ![Panel Principal](principal.png)
 *(Panel principal)*
 
