@@ -27,5 +27,3 @@ El proyecto sigue un enfoque experimental estructurado:
 - **Hardware:** DAQ Festo Labvolt (licencia 9069-90).
 - **Software:** MATLAB/Simulink, LabVIEW, .NET Framework CLR v4.0.
 
----
-*Este repositorio contiene el material de soporte para el desarrollo del anteproyecto de investigación.*
