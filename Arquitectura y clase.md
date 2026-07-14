@@ -20,7 +20,7 @@ Para garantizar la modularidad y el correcto procesamiento de los datos, el proy
 ![Clases de matlab](aclasesmatlab.png)
 
 
-La clase **LV9063EntryPoint** pertenece al SDK (Software Development Kit) proporcionado por el fabricante **Festo/LabVolt** (licencia **9069-90**) y es la encargada de establecer la comunicación entre el software y el dispositivo de adquisición de datos **LV9063 (DAQ)**.
+La clase **LV9063EntryPoint** pertenece al SDK proporcionado por el fabricante **Festo/LabVolt** (licencia **9069-90**) y es la encargada de establecer la comunicación entre el software y el dispositivo de adquisición de datos **LV9063 (DAQ)**.
 
 En otras palabras, esta clase actúa como un intermediario entre el hardware y la aplicación desarrollada en MATLAB.
 
