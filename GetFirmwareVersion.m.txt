@@ -1,0 +1,45 @@
+function GetFirmwareVersion
+
+%Before executing function, check if the following path for LV9063SDK.DLL is valid.
+%Depending of version of the operating system (32 bits or 64 bits) and its language,
+%the path may have to be modified to execute properly.
+%Troubleshoot: To see if LV9063SDK.DLL load correctly after executing once the command
+%NET.addAssembly, execute ListAssemblies.m to see which assemblies is visible to Matlab.
+
+try
+    if (~IsAssemblyAdded('LV9063SDK'))
+        NET.addAssembly('C:\Users\ca0jsnl\Documents\SDK\9063\dll\LV9063SDK.DLL');
+        %NET.addAssembly('C:\Program Files (x86)\Festo Didactic\LVDAC-EMS\SDK\9063\DLL\LV9063SDK.DLL');
+    end
+    
+    dll9063 = LV9063DLL.LV9063EntryPoint();
+	e = dll9063.InitDevice(0);
+    if (e == LV9063DLL.ErrorCode.None)    
+        version = 0; 
+        [e,v] = dll9063.GetFirmwareVersion(version);
+        fwver = sprintf('\nFirmware version: %d \n', v);
+        disp(fwver); 	
+    end
+    e = dll9063.CloseDevice();
+
+catch e
+    e.message
+    if(isa(e,'NET.NetException'))
+        e.ExceptionObject
+    end
+end
+
+end
+
+function loaded = IsAssemblyAdded( AsmName )
+
+asm = System.AppDomain.CurrentDomain.GetAssemblies;
+loaded = false;
+j = 0;
+while (j < asm.Length && ~loaded)
+    %disp(char(asm.Get(j).GetName.Name));
+    loaded = strcmp(char(asm.Get(j).GetName.Name), AsmName);
+    j = j + 1;
+end
+
+end
