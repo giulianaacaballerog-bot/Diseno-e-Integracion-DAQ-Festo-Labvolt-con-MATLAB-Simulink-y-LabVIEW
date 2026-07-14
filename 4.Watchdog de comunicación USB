@@ -1,3 +1,6 @@
+# Watchdog de comunicación USB
+
+## Descripción
 
 Durante la revisión de la documentación oficial del SDK del **LV9063**, se identificó un comportamiento importante relacionado con la comunicación USB del dispositivo.
 
