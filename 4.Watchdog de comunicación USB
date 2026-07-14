@@ -3,9 +3,7 @@
 ## Descripción
 
 Durante la revisión de la documentación oficial del SDK del **LV9063**, se identificó un comportamiento importante relacionado con la comunicación USB del dispositivo.
-
 El DAQ incorpora un **watchdog de comunicación**, el cual supervisa que exista intercambio de información entre el software y el dispositivo. Si durante aproximadamente **3 segundos** no se realiza ninguna operación de lectura (*Get*) o escritura (*Set*), el DAQ finaliza automáticamente la conexión USB.
-
 Por este motivo, la aplicación debe enviar periódicamente una solicitud al dispositivo mientras la conexión permanezca abierta.
 
 ---
