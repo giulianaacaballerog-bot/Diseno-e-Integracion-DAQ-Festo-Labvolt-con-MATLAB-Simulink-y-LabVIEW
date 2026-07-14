@@ -3,79 +3,57 @@
 ## Descripción
 
 Durante la revisión de la documentación oficial del SDK del **LV9063**, se identificó un comportamiento importante relacionado con la comunicación USB del dispositivo.
-El DAQ incorpora un **watchdog de comunicación**, el cual supervisa que exista intercambio de información entre el software y el dispositivo. Si durante aproximadamente **3 segundos** no se realiza ninguna operación de lectura (*Get*) o escritura (*Set*), el DAQ finaliza automáticamente la conexión USB.
-Por este motivo, la aplicación debe enviar periódicamente una solicitud al dispositivo mientras la conexión permanezca abierta.
+
+El DAQ incorpora un **watchdog de comunicación**, el cual supervisa que exista intercambio de información entre el software y el hardware. Si durante aproximadamente **3 segundos** no se realiza ninguna operación de lectura (**Get**) o escritura (**Set**), el dispositivo finaliza automáticamente la conexión USB.
+
+Por este motivo, mientras la comunicación permanezca abierta, la aplicación debe realizar solicitudes periódicas al DAQ para mantener la conexión activa.
 
 ---
 
-## Ejemplo proporcionado por el fabricante
+## Información obtenida del ejemplo del fabricante
 
-El profesor compartió un ejemplo del SDK donde se utiliza el método:
+El profesor compartió un ejemplo incluido en el SDK donde se utiliza el método **GetFirmwareVersion()**.
 
-```matlab
-GetFirmwareVersion()
-```
+Aunque la función principal de este método es consultar la versión del firmware del dispositivo, la documentación indica que también puede utilizarse para mantener activa la comunicación USB, ya que corresponde a una operación de tipo **Get**.
 
-Este método consulta la versión del firmware del DAQ y, además de cumplir esa función, sirve para mantener activa la comunicación con el dispositivo.
+En el ejemplo se observa el siguiente flujo de trabajo:
 
-El flujo mostrado en el ejemplo es el siguiente:
+1. Cargar el ensamblado **LV9063SDK.dll**.
+2. Crear una instancia de **LV9063EntryPoint**.
+3. Inicializar la comunicación mediante **InitDevice()**.
+4. Consultar la versión del firmware utilizando **GetFirmwareVersion()**.
+5. Finalizar la comunicación con **CloseDevice()**.
 
-```text
-Cargar DLL (.NET)
-        │
-        ▼
-Crear LV9063EntryPoint
-        │
-        ▼
-InitDevice()
-        │
-        ▼
-GetFirmwareVersion()
-        │
-        ▼
-CloseDevice()
-```
-
-Aunque el ejemplo únicamente realiza una consulta y posteriormente cierra la conexión, la documentación indica que este mismo método puede ejecutarse periódicamente (por ejemplo, cada segundo) para evitar que el watchdog desconecte el dispositivo.
+El ejemplo únicamente realiza una consulta y posteriormente cierra la conexión. Sin embargo, la documentación recomienda ejecutar **GetFirmwareVersion()** aproximadamente cada **1 segundo** cuando la comunicación permanezca abierta, evitando así que el watchdog desconecte el dispositivo.
 
 ---
 
 ## Implicaciones para la arquitectura del proyecto
 
-El comportamiento del watchdog debe ser administrado por la clase encargada de la conexión con el DAQ.
+Dentro de la arquitectura desarrollada, el control del watchdog debe implementarse en la clase **LV9063**, ya que esta es la encargada de administrar el ciclo de vida de la conexión con el DAQ.
 
-Dentro de la arquitectura propuesta, esta responsabilidad corresponde a la clase:
+Sus responsabilidades son:
 
-- **LV9063**
-
-Esta clase es la encargada de:
-
-- Inicializar la comunicación (`InitDevice()`).
+- Inicializar la comunicación con el dispositivo.
 - Mantener la conexión activa mediante solicitudes periódicas.
-- Cerrar correctamente la comunicación (`CloseDevice()`).
+- Cerrar correctamente la comunicación cuando el dispositivo deje de utilizarse.
 
-Las demás clases del proyecto (`Acquisition`, `AnalogOutput`, `DigitalIO`, `Processing`, etc.) no deben preocuparse por el watchdog, ya que únicamente utilizan una conexión que ya se encuentra activa.
+Las demás clases del proyecto (**Acquisition**, **AnalogOutput**, **DigitalIO**, **Processing**, etc.) únicamente utilizan una conexión ya establecida, por lo que no necesitan implementar ninguna lógica relacionada con el watchdog.
 
 ---
 
-## Aspectos importantes identificados
+## Aspectos importantes
 
-- El watchdog se activa cuando no existe ninguna comunicación durante aproximadamente **3 segundos**.
-- Cualquier método del tipo **Get** o **Set** reinicia el temporizador del watchdog.
-- La documentación propone utilizar `GetFirmwareVersion()` como solicitud periódica para mantener viva la conexión.
-- Si la aplicación permanece inactiva durante más de 3 segundos después de ejecutar `InitDevice()`, es posible que la siguiente operación falle debido a que el dispositivo ya habrá cerrado la comunicación USB.
-- Este comportamiento puede explicar errores de comunicación observados después de establecer correctamente la conexión con el DAQ.
+- El watchdog desconecta automáticamente el DAQ después de aproximadamente **3 segundos** sin comunicación.
+- Cualquier operación de tipo **Get** o **Set** reinicia el temporizador del watchdog.
+- La documentación recomienda utilizar **GetFirmwareVersion()** como solicitud periódica para mantener activa la conexión.
+- Si después de ejecutar **InitDevice()** no se realiza ninguna petición durante varios segundos, la siguiente operación sobre el dispositivo puede fallar debido a que la conexión USB ya fue cerrada por el watchdog.
+- Este comportamiento puede explicar los errores de comunicación observados durante el desarrollo del proyecto.
 
 ---
 
 ## Observación
 
-En el ejemplo enviado por el profesor se utiliza la llamada:
+En el ejemplo proporcionado por el profesor se utiliza la llamada **InitDevice(0)**, mientras que en otras versiones de la documentación el método aparece sin parámetros.
 
-```matlab
-InitDevice(0)
-```
-
-Sin embargo, en otras versiones de la documentación el método aparece sin parámetros.
-
-Esto sugiere que existen diferentes versiones del SDK o sobrecargas del método, por lo que es recomendable verificar la firma disponible en la versión del ensamblado (`LV9063SDK.dll`) utilizada en el proyecto.
+Esto sugiere que pueden existir diferentes versiones del SDK o sobrecargas del método, por lo que es recomendable verificar la firma disponible en la versión de **LV9063SDK.dll** utilizada en el proyecto.
