@@ -17,7 +17,7 @@ Para garantizar la modularidad y el correcto procesamiento de los datos, el proy
 
 # LV9063EntryPoint
 
-![Clases de matlab]()
+![Clases de matlab](aclases matlab.png)
 
 ## 1. ¿Qué es esta clase?
 
