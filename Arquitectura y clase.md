@@ -19,7 +19,6 @@ Para garantizar la modularidad y el correcto procesamiento de los datos, el proy
 
 ![Clases de matlab](aclases matlab.png)
 
-## 1. ¿Qué es esta clase?
 
 La clase **LV9063EntryPoint** pertenece al SDK (Software Development Kit) proporcionado por el fabricante **Festo/LabVolt** (licencia **9069-90**) y es la encargada de establecer la comunicación entre el software y el dispositivo de adquisición de datos **LV9063 (DAQ)**.
 
@@ -48,7 +47,7 @@ Por esta razón, las clases desarrolladas en MATLAB (**LV9063**, **DeviceInfo**,
 
 ---
 
-# 2. Agrupación funcional de los métodos
+# Agrupación funcional de los métodos
 
 Aunque el SDK proporciona una única clase con numerosos métodos, para facilitar el diseño de la aplicación estos se agrupan según la función que desempeñan. Esta organización coincide con la arquitectura orientada a objetos implementada en MATLAB, donde cada clase se encarga de una responsabilidad específica.
 
@@ -141,7 +140,7 @@ A diferencia de las clases anteriores, estos métodos no interactúan directamen
 
 ---
 
-# 3. Tipos de retorno importantes
+# Tipos de retorno importantes
 
 Los métodos del SDK utilizan diferentes tipos de datos propios de .NET. Comprenderlos facilita la integración entre MATLAB y el dispositivo DAQ.
 
