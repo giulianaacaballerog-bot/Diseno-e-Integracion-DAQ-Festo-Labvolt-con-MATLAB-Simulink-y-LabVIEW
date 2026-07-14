@@ -1,4 +1,9 @@
-# Estructura del código
+# Arquitectura del Sistema y Estructura del Código
+
+Para garantizar la modularidad y el correcto procesamiento de los datos, el proyecto se diseñó bajo una **Arquitectura Orientada a Objetos (OO)** estructurada en 4 capas dinámicas. Esto permite aislar la interfaz gráfica de la complejidad de las librerías de bajo nivel del fabricante.
+
+
+
 El archivo principal contiene varias funciones:
 
 ## GUI_Principal
